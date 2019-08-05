@@ -1,0 +1,617 @@
+int dato1;
+int dato2;
+float voltios;
+float temperaturaC;
+int alarma=7;
+int ventilador=9;
+int pin1Motor=6;
+int pin2Motor=5;
+int finalCarrera1=4;
+int finalCarrera2=3;
+
+void ControlAlarma()
+{
+  if(temperaturaC<36 && dato2>850)
+  {
+  digitalWrite(alarma,LOW);
+  } 
+  
+  if(temperaturaC>=36 || dato2<=850)
+  {
+    digitalWrite(alarma,HIGH);
+  }
+
+}
+
+void ControlTecho()
+{ 
+  if(temperaturaC>=36 && temperaturaC<47 && dato2>850)
+  {
+   if(digitalRead(finalCarrera1)==HIGH && digitalRead(finalCarrera2)==LOW)
+   {
+     analogWrite(pin1Motor,70);
+      analogWrite(pin2Motor,0);
+      Serial.println(">> ABRIENDO");
+      Serial.println("");
+      delay(100);
+    }
+  
+    if(digitalRead(finalCarrera1)==LOW && digitalRead(finalCarrera2)==HIGH)
+    {
+     analogWrite(pin1Motor,0);
+     analogWrite(pin2Motor,0);
+     Serial.println(">> Techo Abierto");
+     Serial.println("");
+     delay(100);
+   }
+  
+  }
+ 
+  if(temperaturaC>=36 && temperaturaC<47 && dato2<=850)
+  {
+   if(digitalRead(finalCarrera2)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,70);
+    Serial.println(">> CERRANDO");
+    Serial.println("");
+    delay(100);
+   }
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,0);
+    Serial.println(">> Techo Cerrado");
+    Serial.println("");
+    delay(100);
+   }
+    
+  }
+
+  if(temperaturaC<36 && dato2>850)
+  {
+   if(digitalRead(finalCarrera2)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,70);
+    Serial.println(">> CERRANDO");
+    Serial.println("");
+    delay(100);
+   }
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,0);
+    Serial.println(">> Techo Cerrado");
+    Serial.println("");
+    delay(100);
+   }
+  }
+
+   if(temperaturaC>47 && dato2<=850)
+  {
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+      analogWrite(pin1Motor,70);
+      analogWrite(pin2Motor,0);
+      Serial.println(">> ABRIENDO");
+      Serial.println("");
+      delay(100);
+    }
+  
+    if(digitalRead(finalCarrera2)==HIGH)
+    {
+     analogWrite(pin1Motor,0);
+     analogWrite(pin2Motor,0);
+     Serial.println(">> Techo Abierto");
+     Serial.println("");
+     delay(100);
+   }
+  }
+}
+
+void ControlVentilador()
+{
+  if(temperaturaC>=36)
+  {
+    digitalWrite(ventilador,HIGH);
+  }
+  else
+  {
+    digitalWrite(ventilador,LOW);
+  }
+}
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(finalCarrera1,INPUT);
+  pinMode(finalCarrera2,INPUT);
+  pinMode(alarma,OUTPUT);
+  pinMode(pin1Motor,OUTPUT);
+  pinMode(pin2Motor,OUTPUT);
+  pinMode(ventilador,OUTPUT);
+}
+
+void loop() {
+  dato1 = analogRead(A0);
+  voltios = (dato1 / 1023.0) * 5;
+  temperaturaC = voltios / 10e-3; 
+  Serial.print("TEMPERATURA : ");
+  Serial.print(temperaturaC);
+  Serial.println(" C");
+  delay(100);
+  
+  Serial.println("");
+  
+  dato2 = analogRead(A1);
+  Serial.print("HUMEDAD : ");
+  Serial.println(dato2);
+  delay(300);
+  Serial.println("");
+
+  ControlAlarma();
+  ControlVentilador();
+  ControlTecho();
+}int dato1;
+int dato2;
+float voltios;
+float temperaturaC;
+int alarma=7;
+int ventilador=9;
+int pin1Motor=6;
+int pin2Motor=5;
+int finalCarrera1=4;
+int finalCarrera2=3;
+
+void ControlAlarma()
+{
+  if(temperaturaC<36 && dato2>850)
+  {
+  digitalWrite(alarma,LOW);
+  } 
+  
+  if(temperaturaC>=36 || dato2<=850)
+  {
+    digitalWrite(alarma,HIGH);
+  }
+
+}
+
+void ControlTecho()
+{ 
+  if(temperaturaC>=36 && temperaturaC<47 && dato2>850)
+  {
+   if(digitalRead(finalCarrera1)==HIGH && digitalRead(finalCarrera2)==LOW)
+   {
+     analogWrite(pin1Motor,70);
+      analogWrite(pin2Motor,0);
+      Serial.println(">> ABRIENDO");
+      Serial.println("");
+      delay(100);
+    }
+  
+    if(digitalRead(finalCarrera1)==LOW && digitalRead(finalCarrera2)==HIGH)
+    {
+     analogWrite(pin1Motor,0);
+     analogWrite(pin2Motor,0);
+     Serial.println(">> Techo Abierto");
+     Serial.println("");
+     delay(100);
+   }
+  
+  }
+ 
+  if(temperaturaC>=36 && temperaturaC<47 && dato2<=850)
+  {
+   if(digitalRead(finalCarrera2)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,70);
+    Serial.println(">> CERRANDO");
+    Serial.println("");
+    delay(100);
+   }
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,0);
+    Serial.println(">> Techo Cerrado");
+    Serial.println("");
+    delay(100);
+   }
+    
+  }
+
+  if(temperaturaC<36 && dato2>850)
+  {
+   if(digitalRead(finalCarrera2)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,70);
+    Serial.println(">> CERRANDO");
+    Serial.println("");
+    delay(100);
+   }
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,0);
+    Serial.println(">> Techo Cerrado");
+    Serial.println("");
+    delay(100);
+   }
+  }
+
+   if(temperaturaC>47 && dato2<=850)
+  {
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+      analogWrite(pin1Motor,70);
+      analogWrite(pin2Motor,0);
+      Serial.println(">> ABRIENDO");
+      Serial.println("");
+      delay(100);
+    }
+  
+    if(digitalRead(finalCarrera2)==HIGH)
+    {
+     analogWrite(pin1Motor,0);
+     analogWrite(pin2Motor,0);
+     Serial.println(">> Techo Abierto");
+     Serial.println("");
+     delay(100);
+   }
+  }
+}
+
+void ControlVentilador()
+{
+  if(temperaturaC>=36)
+  {
+    digitalWrite(ventilador,HIGH);
+  }
+  else
+  {
+    digitalWrite(ventilador,LOW);
+  }
+}
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(finalCarrera1,INPUT);
+  pinMode(finalCarrera2,INPUT);
+  pinMode(alarma,OUTPUT);
+  pinMode(pin1Motor,OUTPUT);
+  pinMode(pin2Motor,OUTPUT);
+  pinMode(ventilador,OUTPUT);
+}
+
+void loop() {
+  dato1 = analogRead(A0);
+  voltios = (dato1 / 1023.0) * 5;
+  temperaturaC = voltios / 10e-3; 
+  Serial.print("TEMPERATURA : ");
+  Serial.print(temperaturaC);
+  Serial.println(" C");
+  delay(100);
+  
+  Serial.println("");
+  
+  dato2 = analogRead(A1);
+  Serial.print("HUMEDAD : ");
+  Serial.println(dato2);
+  delay(300);
+  Serial.println("");
+
+  ControlAlarma();
+  ControlVentilador();
+  ControlTecho();
+}int dato1;
+int dato2;
+float voltios;
+float temperaturaC;
+int alarma=7;
+int ventilador=9;
+int pin1Motor=6;
+int pin2Motor=5;
+int finalCarrera1=4;
+int finalCarrera2=3;
+
+void ControlAlarma()
+{
+  if(temperaturaC<36 && dato2>850)
+  {
+  digitalWrite(alarma,LOW);
+  } 
+  
+  if(temperaturaC>=36 || dato2<=850)
+  {
+    digitalWrite(alarma,HIGH);
+  }
+
+}
+
+void ControlTecho()
+{ 
+  if(temperaturaC>=36 && temperaturaC<47 && dato2>850)
+  {
+   if(digitalRead(finalCarrera1)==HIGH && digitalRead(finalCarrera2)==LOW)
+   {
+     analogWrite(pin1Motor,70);
+      analogWrite(pin2Motor,0);
+      Serial.println(">> ABRIENDO");
+      Serial.println("");
+      delay(100);
+    }
+  
+    if(digitalRead(finalCarrera1)==LOW && digitalRead(finalCarrera2)==HIGH)
+    {
+     analogWrite(pin1Motor,0);
+     analogWrite(pin2Motor,0);
+     Serial.println(">> Techo Abierto");
+     Serial.println("");
+     delay(100);
+   }
+  
+  }
+ 
+  if(temperaturaC>=36 && temperaturaC<47 && dato2<=850)
+  {
+   if(digitalRead(finalCarrera2)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,70);
+    Serial.println(">> CERRANDO");
+    Serial.println("");
+    delay(100);
+   }
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,0);
+    Serial.println(">> Techo Cerrado");
+    Serial.println("");
+    delay(100);
+   }
+    
+  }
+
+  if(temperaturaC<36 && dato2>850)
+  {
+   if(digitalRead(finalCarrera2)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,70);
+    Serial.println(">> CERRANDO");
+    Serial.println("");
+    delay(100);
+   }
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,0);
+    Serial.println(">> Techo Cerrado");
+    Serial.println("");
+    delay(100);
+   }
+  }
+
+   if(temperaturaC>47 && dato2<=850)
+  {
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+      analogWrite(pin1Motor,70);
+      analogWrite(pin2Motor,0);
+      Serial.println(">> ABRIENDO");
+      Serial.println("");
+      delay(100);
+    }
+  
+    if(digitalRead(finalCarrera2)==HIGH)
+    {
+     analogWrite(pin1Motor,0);
+     analogWrite(pin2Motor,0);
+     Serial.println(">> Techo Abierto");
+     Serial.println("");
+     delay(100);
+   }
+  }
+}
+
+void ControlVentilador()
+{
+  if(temperaturaC>=36)
+  {
+    digitalWrite(ventilador,HIGH);
+  }
+  else
+  {
+    digitalWrite(ventilador,LOW);
+  }
+}
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(finalCarrera1,INPUT);
+  pinMode(finalCarrera2,INPUT);
+  pinMode(alarma,OUTPUT);
+  pinMode(pin1Motor,OUTPUT);
+  pinMode(pin2Motor,OUTPUT);
+  pinMode(ventilador,OUTPUT);
+}
+
+void loop() {
+  dato1 = analogRead(A0);
+  voltios = (dato1 / 1023.0) * 5;
+  temperaturaC = voltios / 10e-3; 
+  Serial.print("TEMPERATURA : ");
+  Serial.print(temperaturaC);
+  Serial.println(" C");
+  delay(100);
+  
+  Serial.println("");
+  
+  dato2 = analogRead(A1);
+  Serial.print("HUMEDAD : ");
+  Serial.println(dato2);
+  delay(300);
+  Serial.println("");
+
+  ControlAlarma();
+  ControlVentilador();
+  ControlTecho();
+}int dato1;
+int dato2;
+float voltios;
+float temperaturaC;
+int alarma=7;
+int ventilador=9;
+int pin1Motor=6;
+int pin2Motor=5;
+int finalCarrera1=4;
+int finalCarrera2=3;
+
+void ControlAlarma()
+{
+  if(temperaturaC<36 && dato2>850)
+  {
+  digitalWrite(alarma,LOW);
+  } 
+  
+  if(temperaturaC>=36 || dato2<=850)
+  {
+    digitalWrite(alarma,HIGH);
+  }
+
+}
+
+void ControlTecho()
+{ 
+  if(temperaturaC>=36 && temperaturaC<47 && dato2>850)
+  {
+   if(digitalRead(finalCarrera1)==HIGH && digitalRead(finalCarrera2)==LOW)
+   {
+     analogWrite(pin1Motor,70);
+      analogWrite(pin2Motor,0);
+      Serial.println(">> ABRIENDO");
+      Serial.println("");
+      delay(100);
+    }
+  
+    if(digitalRead(finalCarrera1)==LOW && digitalRead(finalCarrera2)==HIGH)
+    {
+     analogWrite(pin1Motor,0);
+     analogWrite(pin2Motor,0);
+     Serial.println(">> Techo Abierto");
+     Serial.println("");
+     delay(100);
+   }
+  
+  }
+ 
+  if(temperaturaC>=36 && temperaturaC<47 && dato2<=850)
+  {
+   if(digitalRead(finalCarrera2)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,70);
+    Serial.println(">> CERRANDO");
+    Serial.println("");
+    delay(100);
+   }
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,0);
+    Serial.println(">> Techo Cerrado");
+    Serial.println("");
+    delay(100);
+   }
+    
+  }
+
+  if(temperaturaC<36 && dato2>850)
+  {
+   if(digitalRead(finalCarrera2)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,70);
+    Serial.println(">> CERRANDO");
+    Serial.println("");
+    delay(100);
+   }
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+    analogWrite(pin1Motor,0);
+    analogWrite(pin2Motor,0);
+    Serial.println(">> Techo Cerrado");
+    Serial.println("");
+    delay(100);
+   }
+  }
+
+   if(temperaturaC>47 && dato2<=850)
+  {
+   if(digitalRead(finalCarrera1)==HIGH)
+   {
+      analogWrite(pin1Motor,70);
+      analogWrite(pin2Motor,0);
+      Serial.println(">> ABRIENDO");
+      Serial.println("");
+      delay(100);
+    }
+  
+    if(digitalRead(finalCarrera2)==HIGH)
+    {
+     analogWrite(pin1Motor,0);
+     analogWrite(pin2Motor,0);
+     Serial.println(">> Techo Abierto");
+     Serial.println("");
+     delay(100);
+   }
+  }
+}
+
+void ControlVentilador()
+{
+  if(temperaturaC>=36)
+  {
+    digitalWrite(ventilador,HIGH);
+  }
+  else
+  {
+    digitalWrite(ventilador,LOW);
+  }
+}
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(finalCarrera1,INPUT);
+  pinMode(finalCarrera2,INPUT);
+  pinMode(alarma,OUTPUT);
+  pinMode(pin1Motor,OUTPUT);
+  pinMode(pin2Motor,OUTPUT);
+  pinMode(ventilador,OUTPUT);
+}
+
+void loop() {
+  dato1 = analogRead(A0);
+  voltios = (dato1 / 1023.0) * 5;
+  temperaturaC = voltios / 10e-3; 
+  Serial.print("TEMPERATURA : ");
+  Serial.print(temperaturaC);
+  Serial.println(" C");
+  delay(100);
+  
+  Serial.println("");
+  
+  dato2 = analogRead(A1);
+  Serial.print("HUMEDAD : ");
+  Serial.println(dato2);
+  delay(300);
+  Serial.println("");
+
+  ControlAlarma();
+  ControlVentilador();
+  ControlTecho();
+}
